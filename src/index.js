@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Scrollup from './components/pages/Scrollup';
-export *from './components/pages/Scrollup'
 
 
 
