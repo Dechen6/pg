@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-
+ import { FloatingLabel, Form } from 'react-bootstrap';
 import './style.css';
+import {useHistory} from "react-router-dom";
 
 
+function Login(){
+  let history = useHistory();
 
-class Login extends React.Component{
-    render(){
-        return(
-        <div>
-            <img className="wave" src="assets/img/wave3.png" />
+  return(
+    <div>
+    <img className="wave" src="assets/img/wave3.png" />
         <div className="container">
           <div className="img">
             <img src="assets/img/bg6.svg" />
@@ -19,32 +20,28 @@ class Login extends React.Component{
               <img src="assets/img/logo.png" />
               <h3>Peace Growba</h3>
               <h2 className="title">Welcome</h2>
-              <div className="input-div one">
-                <div className="i">
-                  <i className="fas fa-user" />
-                </div>
-                <div className="div">
-                  <h5>Email</h5>
-                  <input type="email" className="input" />
-                </div>
-              </div>
-              <div className="input-div pass">
-                <div className="i"> 
-                  <i className="fas fa-lock" />
-                </div>
-                <div className="div">
-                  <h5>Password</h5>
-                  <input type="password" className="input" />
-                </div>
-              </div>
-             
-              <input type="submit" className="btn" defaultValue="Login" />
+            <>
+           
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Email address"
+                className="mb-3"
+              >
+                <Form.Control type="email" placeholder="name@example.com" />
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingPassword" label="Password">
+                <Form.Control type="password" placeholder="Password" />
+              </FloatingLabel>
+            </>
+            <Form.Group className="mb-3" id="formGridCheckbox">
+    <Form.Check type="checkbox" label="Remember Me" />
+  </Form.Group>
+              <input onClick={() => {history.push('/NavbarComp')}} type="submit" className="btn" defaultValue="Login" />
             </form>
           </div>
         </div>
-        
-        </div>
-        )    
+    </div>
+  );
 }
-}
+
 export default Login;

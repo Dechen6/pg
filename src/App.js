@@ -1,18 +1,15 @@
-import React from 'react';
-import './App.css';
-import Login from './components/pages/Login';
+import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import Login from "./components/pages/Login";
+import NavbarComp from "./components/pages/NavbarComp";
 
-import './components/pages/style.css'
+import View from "./components/pages/View";
 
 
 
-function App() {
-  return (
-    <div>
-    <Login/>  
-    </div>
-    
-  );
-}
+const App = () => {
+  return <NavbarComp/>;
+  
+};
 
 export default App;
