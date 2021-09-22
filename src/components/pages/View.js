@@ -1,11 +1,29 @@
 import React, { Component } from 'react'
-import {Navbar, Container, Nav, Table, Pagination, Form, FormControl, Button, Row, Col, Link} from 'react-bootstrap'
-export default class View extends Component {
-    render() {
-        return (
-            <div>
+import {Navbar, Container, Nav, Table, Pagination, Form, FormControl, Button, Row, Col} from 'react-bootstrap'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"; 
+import ReactPaginate from "react-paginate";
+ import { useState } from "react";
 
-<Row>
+import Viewdetails from './Viewdetails';
+
+
+function View  (){
+
+  const [items, setItems] = useState([])
+
+  const handlePageClick = (data) =>{
+    console.log(data.selected);
+  }
+  return (
+
+    
+    <div>
+      <Row>
     <Col sm={6} style={{textAlign:'center'}}><h2>Candidate List</h2>
     </Col>
 
@@ -37,7 +55,9 @@ export default class View extends Component {
       <td>1</td>
       <td>Thinley</td>
       <td>Jamtsho</td>
-      <Nav.Link href="#">View Details</Nav.Link>
+    
+      <Nav.Link as={Link} to="/Viewdetails">View details</Nav.Link>
+      <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
       
      
     </tr>
@@ -58,7 +78,28 @@ export default class View extends Component {
   </tbody>
 </Table>
 </div> 
-            </div>
-        )
-    }
-}
+
+  <ReactPaginate previousLabel={'previous'}
+  nextLabel ={'next'}
+  breakLabel ={'...'}
+  pageCount={10}
+  marginPagesDisplayed={4}
+  pageRangeDisplayed={1}
+  onPageChange={handlePageClick}
+  containerClassName={'pagination justify-content-center'}
+  pageClassName={'page-item'}
+  pageLinkClassName={'page-link'}
+  previousClassName={'page-item'}
+  previousLinkClassName={'page-link'}
+  nextClassName={'page-item'}
+  nextLinkClassName={'page-link'}
+  breakClassName={'page-item'}
+  breakLinkClassName={'page-link'} 
+  activeClassName={'active'}
+
+  />
+  </div>
+  );
+};
+
+export default View;
