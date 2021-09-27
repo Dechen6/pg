@@ -3,7 +3,7 @@ import {Form, Row, Col, Button, Container} from 'react-bootstrap'
 export default class About extends Component {
     render() {
         return (
-            <div>
+            <div className="container">
                 <h2 style={{textAlign:'center'}}>Add Candidates</h2>
                         <div className="container">
                             <Form>
@@ -59,8 +59,10 @@ export default class About extends Component {
 
                         <Form.Group as={Row} className="mb-3">
                             <Col sm={{ span: 10, offset: 2 }}>
-                            <Button variant="success" type="submit">Save</Button>
+                         
+                            <Button variant="success" type="submit">Save</Button>&nbsp;&nbsp;
                             <Button variant="danger">Cancel</Button>
+                            
                             </Col>
                         </Form.Group>
         

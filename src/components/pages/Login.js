@@ -1,12 +1,21 @@
-import React, { Component } from 'react';
+
+import React, { Fragment, FakeText } from "react";
  import { FloatingLabel, Form } from 'react-bootstrap';
 import './style.css';
 import {useHistory} from "react-router-dom";
-
+import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-router-dom";
 
 function Login(){
-  let history = useHistory();
 
+  const Login = ({match:{params:{email}}}) => (
+    // props.match.params.name
+    <Fragment>
+      { email !== 'dechenwangmo.tijtech@gmail.com' ? <Redirect to="/NavbarComp" /> : null }
+      <h1>About {email}</h1>
+      <FakeText />
+    </Fragment>
+  );
+  
   return(
     <div>
     <img className="wave" src="assets/img/wave3.png" />
@@ -36,7 +45,7 @@ function Login(){
             <Form.Group className="mb-3" id="formGridCheckbox">
     <Form.Check type="checkbox" label="Remember Me" />
   </Form.Group>
-              <input onClick={() => {history.push('/NavbarComp')}} type="submit" className="btn" defaultValue="Login" />
+              <input  type="submit" className="btn" defaultValue="Login" />
             </form>
           </div>
         </div>

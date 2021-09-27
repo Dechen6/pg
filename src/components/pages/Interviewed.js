@@ -1,20 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
-import {Navbar, Container, Nav, Table, Pagination, Form, Button,FormControl, Row, Col} from 'react-bootstrap'
+import {Navbar, Container, Nav, Table, Pagination, Form, FormControl, Button, Row, Col} from 'react-bootstrap'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
-} from "react-router-dom";
-import Details from './Details';
+} from "react-router-dom"; 
 import ReactPaginate from "react-paginate";
  import { useState } from "react";
-import { width } from 'dom-helpers';
 
-export default function SimpleMenu() {
+ export default function SimpleMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -26,18 +23,17 @@ export default function SimpleMenu() {
   };
 
 
+  const [items, setItems] = useState([])
 
-    const [items, setItems] = useState([])
-  
-    const handlePageClick = (data) =>{
-      console.log(data.selected);
-    }
-  
+  const handlePageClick = (data) =>{
+    console.log(data.selected);
+  }
   return (
-    <Router>
+
+    
     <div>
       <Row>
-    <Col sm={6} style={{textAlign:'center'}}><h2>Candidate List</h2>
+    <Col sm={6} style={{textAlign:'center'}}><h2>Interviewed Candidate List</h2>
     </Col>
 
     <Col sm={6}>
@@ -53,15 +49,17 @@ export default function SimpleMenu() {
     </Col>
 
 </Row>
-<div className="container" >
-  
-      <Table striped bordered hover>
+<div className="container">
+<Table striped bordered hover>
   <thead>
     <tr>
       <th>#</th>
       <th>Name</th>
-      <th>Last Name</th>
-      <th></th>
+      <th>JLPT</th>
+      <th>Hiring Company</th>
+      <th>Interview Date</th>
+      <th>Result</th>
+      
 
 
 
@@ -70,12 +68,17 @@ export default function SimpleMenu() {
   <tbody>
     <tr>
       <td>1</td>
-      <td>Alice</td>
-      <td>Mark</td>
+      <td>Mr A</td>
+      <td>N2</td>
+      <td>Company A</td>
+      <td>11/02/2021</td>
       <td>
-      <Link as={Link} to="/Details">View Details</Link>
-       {/* <a href="Viewdetails">View Details  </a> */}
-      <Button variant="link" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+        <Row>
+          <div className="col-md-6">
+          Passed first round
+          </div>
+          <div className="col-md-6">
+          <Button variant="link" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
       <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
       </Button>
       <Menu
@@ -87,36 +90,31 @@ export default function SimpleMenu() {
       >
         <MenuItem onClick={handleClose}>Edit</MenuItem>
         <MenuItem onClick={handleClose}>Delete</MenuItem>
-      </Menu>  </td> 
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Alice</td>
-      <td>Mark</td>
-      <td>
-       <a href="Viewdetails">View Details  </a>
-      <Button variant="link" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-      <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
-      </Menu>  </td> 
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Alice</td>
-      <td>Mark</td>
-      <td>
+      </Menu>
+          </div>
+        </Row>
+       
+     
+      </td>
 
-       <a href="Viewdetails">View Details  </a>
-      <Button variant="link" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+    
+    
+      
+     
+    </tr>
+    <tr>
+    <td>2</td>
+      <td>Mrs B</td>
+      <td>N3</td>
+      <td>Company A</td>
+      <td>11/02/2021</td>
+      <td>
+        <Row>
+          <div className="col-md-6">
+          Failed
+          </div>
+          <div className="col-md-6">
+          <Button variant="link" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
       <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
       </Button>
       <Menu
@@ -128,13 +126,51 @@ export default function SimpleMenu() {
       >
         <MenuItem onClick={handleClose}>Edit</MenuItem>
         <MenuItem onClick={handleClose}>Delete</MenuItem>
-      </Menu>  </td> 
+      </Menu>
+          </div>
+        </Row>
+       
+     
+      </td>
+      
+    </tr>
+    <tr>
+    <td>3</td>
+      <td>Miss D</td>
+      <td>N2</td>
+      <td>Company c</td>
+      <td>11/02/2021</td>
+      <td>
+        <Row>
+          <div className="col-md-6">
+          Passed first round
+          </div>
+          <div className="col-md-6">
+          <Button variant="link" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>Edit</MenuItem>
+        <MenuItem onClick={handleClose}>Delete</MenuItem>
+      </Menu>
+          </div>
+        </Row>
+       
+     
+      </td>
+      
     </tr>
   </tbody>
 </Table>
-      
-    </div>
-    <ReactPaginate previousLabel={'previous'}
+</div> 
+
+  <ReactPaginate previousLabel={'previous'}
   nextLabel ={'next'}
   breakLabel ={'...'}
   pageCount={10}
@@ -153,16 +189,6 @@ export default function SimpleMenu() {
   activeClassName={'active'}
 
   />
-    </div>
-    <div>
-              <Switch>
-                        
-                          <Route path="/Details">
-                            <Details/>
-                          </Route>
-                        
-                      </Switch>
-              </div>
-    </Router>
+  </div>
   );
-}
+};
