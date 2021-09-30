@@ -26,7 +26,7 @@ export default function SimpleMenu() {
 
 
         return (
-          <Router>
+        
             <div>
                   <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
     <Container>
@@ -38,12 +38,10 @@ export default function SimpleMenu() {
     <Navbar.Collapse id="responsive-navbar-nav">
       
       <Nav className="me-auto" style={{paddingRight:40}}>
-
-        <Nav.Link as={Link} to="/Home">Home</Nav.Link>
+        <Nav.Link as={Link} to="/">Home</Nav.Link>
         <Nav.Link as={Link} to="/Add">Add</Nav.Link>
         <Nav.Link as={Link} to="/View">View</Nav.Link>
         <Nav.Link as={Link} to="/Interviewed">Interviewed</Nav.Link>
-
       </Nav>
       <Nav>
       <Nav.Link as={Link} to="/home"> <i class="fa fa-bell" aria-hidden="true"></i></Nav.Link> 
@@ -79,26 +77,7 @@ export default function SimpleMenu() {
     </Navbar.Collapse>
     </Container>
   </Navbar><br></br>
-
-
-
-
-              </div>
-              <div>
-              <Switch>
-                        
-                          <Route path="/Add">
-                            <Add/>
-                          </Route>
-                          <Route path="/View">
-                              <View />
-                          </Route>
-                          <Route path="/Interviewed">
-                              <Interviewed />
-                          </Route>
-                      </Switch>
-              </div>
-              </Router>
+</div>             
           )
       }
   

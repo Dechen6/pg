@@ -1,56 +1,51 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-import React, { Fragment, FakeText } from "react";
- import { FloatingLabel, Form } from 'react-bootstrap';
-import './style.css';
-import {useHistory} from "react-router-dom";
-import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-router-dom";
 
-function Login(){
-
-  const Login = ({match:{params:{email}}}) => (
-    // props.match.params.name
-    <Fragment>
-      { email !== 'dechenwangmo.tijtech@gmail.com' ? <Redirect to="/NavbarComp" /> : null }
-      <h1>About {email}</h1>
-      <FakeText />
-    </Fragment>
-  );
-  
-  return(
-    <div>
-    <img className="wave" src="assets/img/wave3.png" />
-        <div className="container">
-          <div className="img">
-            <img src="assets/img/bg6.svg" />
-
-          </div>
-          <div className="login-content">
-            <form action="index.html">
-              <img src="assets/img/logo.png" />
-              <h3>Peace Growba</h3>
-              <h2 className="title">Welcome</h2>
-            <>
-           
-              <FloatingLabel
-                controlId="floatingInput"
-                label="Email address"
-                className="mb-3"
-              >
-                <Form.Control type="email" placeholder="name@example.com" />
-              </FloatingLabel>
-              <FloatingLabel controlId="floatingPassword" label="Password">
-                <Form.Control type="password" placeholder="Password" />
-              </FloatingLabel>
-            </>
-            <Form.Group className="mb-3" id="formGridCheckbox">
-    <Form.Check type="checkbox" label="Remember Me" />
-  </Form.Group>
-              <input  type="submit" className="btn" defaultValue="Login" />
-            </form>
-          </div>
-        </div>
-    </div>
-  );
+async function loginUser(credentials) {
+ return fetch('http://localhost:8080/login', {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/json'
+   },
+   body: JSON.stringify(credentials)
+ })
+   .then(data => data.json())
 }
 
-export default Login;
+export default function Login({ setToken }) {
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const token = await loginUser({
+      username,
+      password
+    });
+    setToken(token);
+  }
+
+  return(
+    <div className="login-wrapper">
+      <h1>Please Log In</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <p>Username</p>
+          <input type="text" onChange={e => setUserName(e.target.value)} />
+        </label>
+        <label>
+          <p>Password</p>
+          <input type="password" onChange={e => setPassword(e.target.value)} />
+        </label>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired
+};
