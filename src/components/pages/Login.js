@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
+import { FloatingLabel, Form } from 'react-bootstrap';
+import {Navbar, Container, Nav, Table, Pagination, Button} from 'react-bootstrap'
+import './style.css';
 
 async function loginUser(credentials) {
  return fetch('http://localhost:8080/login', {
@@ -27,9 +29,15 @@ export default function Login({ setToken }) {
   }
 
   return(
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <form onSubmit={handleSubmit}>
+    <div>
+    <img className="wave" src="assets/img/wave3.png" />
+        <div className="container">
+          <div className="img">
+            <img src="assets/img/bg6.svg" />
+
+          </div>
+          <div className="login-content">
+          <form onSubmit={handleSubmit}>
         <label>
           <p>Username</p>
           <input type="text" onChange={e => setUserName(e.target.value)} />
@@ -42,6 +50,8 @@ export default function Login({ setToken }) {
           <button type="submit">Submit</button>
         </div>
       </form>
+          </div>
+        </div>
     </div>
   )
 }
