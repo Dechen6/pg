@@ -31,24 +31,34 @@ export default function Login({ setToken }) {
   return(
     <div>
     <img className="wave" src="assets/img/wave3.png" />
-        <div className="container">
+        <div className="container6">
           <div className="img">
             <img src="assets/img/bg6.svg" />
 
           </div>
           <div className="login-content">
           <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={e => setUserName(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)} />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
+          <h2 class="title">Welcome</h2>
+          <div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fa fa-envelope"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Email</h5>
+                      <input type="text" onChange={e => setUserName(e.target.value)} />
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password</h5>
+           		    	<input type="password" onChange={e => setPassword(e.target.value)} />
+            	   </div>
+            	</div>
+            	<a href="#">Forgot Password?</a>
+            	<input type="submit" class="btn6" value="Login"/>
       </form>
           </div>
         </div>

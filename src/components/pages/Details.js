@@ -1,101 +1,103 @@
-import React, { Component } from 'react'
-import {Navbar, Container, Nav, Table, Pagination, Form, FormControl, Button, Row, Col} from 'react-bootstrap'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Add from './Add';
-import ReactPaginate from "react-paginate";
- import { useState } from "react";
+import React, {Component} from "react";
+import axios from 'axios'
+import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
+class View extends Component{
 
-
-
-function Viewdetails  (){
-
-  const [items, setItems] = useState([])
-
-  const handlePageClick = (data) =>{
-    console.log(data.selected);
+  constructor(props){
+    super(props)
+    this.state = {
+      items:[],
+      isLoaded: false,
+    }
   }
-  return (
+ 
+  componentDidMount(){
 
-    
-    <div>
-      <Row>
-    <Col sm={6} style={{textAlign:'center'}}><h2>Candidate Detail</h2>
+   fetch('https://pg-backend-server.herokuapp.com/api/CandidateData/?format=json')
+   .then(res => res.json())
+   .then(json => {
+     this.setState({
+       isLoaded:true,
+       items:json,
+     })
+   }) 
+  }
+  render(){
+    var { isLoaded, items} = this.state;
+
+    if(!isLoaded){
+      return <div>Loading...</div>;
+    }
+    else{
+
+    return(
+      <div style={{paddingLeft:50, paddingRight:50}}>
+        <Row>
+    <Col sm={6}><h2>Candidate Details</h2>
     </Col>
 
-  
+    <Col sm={6}>
+            <Form className="d-flex" style={{width:300}}>
+                <FormControl
+                type="search"
+                placeholder="Search Candidate"
+                className="mr-2"
+                aria-label="Search"
+                />
+                <Button variant="outline-success">Search</Button>
+            </Form>
+    </Col>
 
 </Row>
-<div className="container">
-<Table striped bordered hover>
-  <thead>
+       <Table striped bordered hover>
+       <thead>
     <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
+      <th>ID</th>
+      <th>Candidate Name</th>
       <th>Gender</th>
-      <th>Age</th>
-      
-
-
-
+      <th>Email</th>
+      <th>Profile on sunrise</th>
+      <th>DoB</th>
+      <th>Country</th>
+      <th>Registeration Date</th>
+      <th>Job Applied</th>
+      <th>Education</th>
+      <th>JLPT</th>
+      <th>Employment Status</th>
+      <th>Employment Date</th>
+      <th>Work Experience</th>
+      <th>Visa Date</th>
+      <th>Remarks</th>
+      <th>Resume Link</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Swan</td>
-      <td>mark@gmail.com A</td>
-      <td>Mail</td>
-      <td>27</td>  
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Swan</td>
-      <td>mark@gmail.com A</td>
-      <td>Mail</td>
-      <td>27</td>  
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Swan</td>
-      <td>mark@gmail.com A</td>
-      <td>Mail</td>
-      <td>27</td>   
-    </tr>
-  </tbody>
-</Table>
-</div> 
-
-  <ReactPaginate previousLabel={'previous'}
-  nextLabel ={'next'}
-  breakLabel ={'...'}
-  pageCount={10}
-  marginPagesDisplayed={4}
-  pageRangeDisplayed={1}
-  onPageChange={handlePageClick}
-  containerClassName={'pagination justify-content-center'}
-  pageClassName={'page-item'}
-  pageLinkClassName={'page-link'}
-  previousClassName={'page-item'}
-  previousLinkClassName={'page-link'}
-  nextClassName={'page-item'}
-  nextLinkClassName={'page-link'}
-  breakClassName={'page-item'}
-  breakLinkClassName={'page-link'} 
-  activeClassName={'active'}
-
-  />
-  </div>
-  );
-};
-
-export default Viewdetails;
+          {items.map(item => (
+            <tr key={item.id}>
+              <td> {item.id}</td>
+              <td> {item.candidate_name}</td>
+              <td>{item.gender}</td>
+              <td>{item.email}</td>
+              <td>{item.profile_on_sunrise}</td>
+              <td>{item.dob}</td>
+              <td>{item.country}</td>
+              <td>{item.registeration_date}</td>
+              <td>{item.job_applied}</td>
+              <td>{item.education}</td>
+              <td>{item.jlpt}</td>
+              <td>{item.employment_status}</td>
+              <td>{item.employment_date}</td>
+              <td>{item.work_experience}</td>
+              <td>{item.visa_date}</td>
+              <td>{item.remarks}</td>
+              <td>{item.resume_link}</td>
+              </tr>
+          ))} 
+    </tbody>
+        </Table>
+    </div>
+    )
+    }
+  }
+}
+export default View

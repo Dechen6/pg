@@ -1,43 +1,39 @@
-import React from 'react';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import React, {Component} from "react";
+import axios from 'axios'
+import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
+class View extends Component{
 
-import {Navbar, Container, Nav, Table, Pagination, Form, Button,FormControl, Row, Col} from 'react-bootstrap'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Details from './Details';
-import ReactPaginate from "react-paginate";
- import { useState } from "react";
-import { width } from 'dom-helpers';
-
-export default function SimpleMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-
-
-    const [items, setItems] = useState([])
-  
-    const handlePageClick = (data) =>{
-      console.log(data.selected);
+  constructor(props){
+    super(props)
+    this.state = {
+      items:[],
+      isLoaded: false,
     }
-  
-  return (
-    <Router>
-    <div>
-      <Row>
-    <Col sm={6} style={{textAlign:'center'}}><h2>Candidate List</h2>
+  }
+ 
+  componentDidMount(){
+
+   fetch('https://pg-backend-server.herokuapp.com/api/CandidateData/?format=json')
+   .then(res => res.json())
+   .then(json => {
+     this.setState({
+       isLoaded:true,
+       items:json,
+     })
+   }) 
+  }
+  render(){
+    var { isLoaded, items} = this.state;
+
+    if(!isLoaded){
+      return <div>Loading...</div>;
+    }
+    else{
+
+    return(
+      <div style={{paddingLeft:50, paddingRight:50}}>
+        <Row>
+    <Col sm={6}><h2>Candidate List</h2>
     </Col>
 
     <Col sm={6}>
@@ -53,116 +49,31 @@ export default function SimpleMenu() {
     </Col>
 
 </Row>
-<div className="container" >
-  
-      <Table striped bordered hover>
-  <thead>
+       <Table striped bordered hover>
+       <thead>
     <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Last Name</th>
+      <th>ID</th>
+      <th>Candidate Name</th>
+      <th>Gender</th>
       <th></th>
-
-
-
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>Alice</td>
-      <td>Mark</td>
-      <td>
-      <Link as={Link} to="/Details">View Details</Link>
-       {/* <a href="Viewdetails">View Details  </a> */}
-      <Button variant="link" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-      <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
-      </Menu>  </td> 
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Alice</td>
-      <td>Mark</td>
-      <td>
-       <a href="Viewdetails">View Details  </a>
-      <Button variant="link" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-      <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
-      </Menu>  </td> 
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Alice</td>
-      <td>Mark</td>
-      <td>
-
-       <a href="Viewdetails">View Details  </a>
-      <Button variant="link" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-      <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
-      </Menu>  </td> 
-    </tr>
-  </tbody>
-</Table>
-      
+          {items.map(item => (
+            <tr key={item.id}>
+              <td> {item.id}</td>
+              <td> {item.candidate_name}</td>
+              <td>{item.gender}</td>
+              <td>
+                
+                <Button variant="link">View Details</Button></td>
+              </tr>
+          ))} 
+    </tbody>
+        </Table>
     </div>
-    <ReactPaginate previousLabel={'previous'}
-  nextLabel ={'next'}
-  breakLabel ={'...'}
-  pageCount={10}
-  marginPagesDisplayed={4}
-  pageRangeDisplayed={1}
-  onPageChange={handlePageClick}
-  containerClassName={'pagination justify-content-center'}
-  pageClassName={'page-item'}
-  pageLinkClassName={'page-link'}
-  previousClassName={'page-item'}
-  previousLinkClassName={'page-link'}
-  nextClassName={'page-item'}
-  nextLinkClassName={'page-link'}
-  breakClassName={'page-item'}
-  breakLinkClassName={'page-link'} 
-  activeClassName={'active'}
-
-  />
-    </div>
-    <div>
-              <Switch>
-                        
-                          <Route path="/Details">
-                            <Details/>
-                          </Route>
-                        
-                      </Switch>
-              </div>
-    </Router>
-  );
+    )
+    }
+  }
 }
+export default View

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import {Navbar, Container, Nav, Table, Pagination, Button} from 'react-bootstrap'
+import {Navbar, Container, Nav, Button} from 'react-bootstrap'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import Add from './Add';
-import View from './View';
-import Interviewed from './Interviewed';
+
 
 
 export default function SimpleMenu() {
