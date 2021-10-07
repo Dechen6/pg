@@ -22,6 +22,18 @@ class View extends Component{
      })
    }) 
   }
+  deletePost(id) {
+    var url = "https://pg-backend-server.herokuapp.com/api/CandidateDataDelete/"+id;
+    var r = window.confirm("Are you sure? Data cannot be reverted");
+    if (r == true) {
+      axios
+      .delete(`${url}`)
+      .then(() => {
+        alert("Post deleted!");
+        window.location.reload();
+      });
+    } 
+  }
   render(){
     var { isLoaded, items} = this.state;
 
@@ -33,22 +45,22 @@ class View extends Component{
     return(
       <div style={{paddingLeft:50, paddingRight:50}}>
         <Row>
-    <Col sm={6}><h2>Candidate List</h2>
-    </Col>
+          <Col sm={6}><h2>Candidate List</h2>
+          </Col>
 
-    <Col sm={6}>
-            <Form className="d-flex" style={{width:300}}>
-                <FormControl
-                type="search"
-                placeholder="Search Candidate"
-                className="mr-2"
-                aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-            </Form>
-    </Col>
+          <Col sm={6}>
+                  <Form className="d-flex" style={{width:300}}>
+                      <FormControl
+                      type="search"
+                      placeholder="Search Candidate"
+                      className="mr-2"
+                      aria-label="Search"
+                      />
+                      <Button variant="outline-success">Search</Button>
+                  </Form>
+          </Col>
 
-</Row>
+      </Row>
        <Table striped bordered hover>
        <thead>
     <tr>
@@ -67,6 +79,8 @@ class View extends Component{
               <td>
                 
                 <Button variant="link">View Details</Button></td>
+                
+                <button onClick={() => this.deletePost(item.id)} >Delete Post</button>
               </tr>
           ))} 
     </tbody>

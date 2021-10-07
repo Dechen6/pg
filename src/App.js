@@ -8,6 +8,7 @@ import View from "./components/pages/View";
 import Interviewed from "./components/pages/Interviewed";
 import Home from "./components/pages/Home";
 import Details from "./components/pages/Details";
+import Addinterviewed from "./components/pages/Addinterviewed"
 import {BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 
 function App(){
@@ -25,6 +26,7 @@ function App(){
       <Route path="/View" component={View}/>
       <Route path="/Details" component={Details}/>
       <Route path="/Interviewed" component={Interviewed}/>
+      <Route path="/Addinterviewed" component={Addinterviewed}/>
     </div>
     </Router>
   );

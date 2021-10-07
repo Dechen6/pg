@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import {Navbar, Container, Nav, Button} from 'react-bootstrap'
+import {NavDropdown, Navbar, Container, Nav, Button} from 'react-bootstrap'
+
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -37,9 +39,14 @@ export default function SimpleMenu() {
       
       <Nav className="me-auto" style={{paddingRight:40}}>
         <Nav.Link as={Link} to="/">Home</Nav.Link>
-        <Nav.Link as={Link} to="/Add">Add</Nav.Link>
-        <Nav.Link as={Link} to="/View">View</Nav.Link>
-        <Nav.Link as={Link} to="/Interviewed">Interviewed</Nav.Link>
+        <NavDropdown title="Candidate" id="basic-nav-dropdown">
+        <NavDropdown.Item href="View">View Candidate</NavDropdown.Item>
+          <NavDropdown.Item href="Add">Add Candidate</NavDropdown.Item>
+        </NavDropdown>
+        <NavDropdown title="Interviewed" id="basic-nav-dropdown">
+          <NavDropdown.Item href="Interviewed">View Interviewed</NavDropdown.Item>
+          <NavDropdown.Item href="Addinterviewed">Add Interviewed</NavDropdown.Item>
+        </NavDropdown>
       </Nav>
       <Nav>
       <Nav.Link as={Link} to="/home"> <i class="fa fa-bell" aria-hidden="true"></i></Nav.Link> 
