@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
+import LongMenu from './threedotInterview'
 class View extends Component{
 
   constructor(props){
@@ -72,6 +73,7 @@ class View extends Component{
               <td>{item.reason}</td>
               <td>{item.end_date}</td>
               <td>{item.note}</td>
+              <td><LongMenu id={item.id}/></td>
               </tr>
           ))} 
     </tbody>

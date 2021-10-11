@@ -1,6 +1,8 @@
 import React, {Component} from "react";
-import axios from 'axios'
 import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
+import LongMenu from './threedot'
+import { Link } from 'react-router-dom';
+
 class View extends Component{
 
   constructor(props){
@@ -21,18 +23,6 @@ class View extends Component{
        items:json,
      })
    }) 
-  }
-  deletePost(id) {
-    var url = "https://pg-backend-server.herokuapp.com/api/CandidateDataDelete/"+id;
-    var r = window.confirm("Are you sure? Data cannot be reverted");
-    if (r == true) {
-      axios
-      .delete(`${url}`)
-      .then(() => {
-        alert("Post deleted!");
-        window.location.reload();
-      });
-    } 
   }
   render(){
     var { isLoaded, items} = this.state;
@@ -76,11 +66,8 @@ class View extends Component{
               <td> {item.id}</td>
               <td> {item.candidate_name}</td>
               <td>{item.gender}</td>
-              <td>
-                
-                <Button variant="link">View Details</Button></td>
-                
-                <button onClick={() => this.deletePost(item.id)} >Delete Post</button>
+              <td><Link to="/Details">View details</Link></td>
+                <td><LongMenu id={item.id}/></td>
               </tr>
           ))} 
     </tbody>

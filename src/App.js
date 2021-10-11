@@ -9,7 +9,9 @@ import Interviewed from "./components/pages/Interviewed";
 import Home from "./components/pages/Home";
 import Details from "./components/pages/Details";
 import Addinterviewed from "./components/pages/Addinterviewed"
+import editcadidate from "./components/pages/Editcandidate";
 import {BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
+import Editcandidate from "./components/pages/Editcandidate";
 
 function App(){
   // const [token, setToken] = useState();
@@ -27,6 +29,7 @@ function App(){
       <Route path="/Details" component={Details}/>
       <Route path="/Interviewed" component={Interviewed}/>
       <Route path="/Addinterviewed" component={Addinterviewed}/>
+      <Route path="/Editcandidate" component={Editcandidate}/>
     </div>
     </Router>
   );
