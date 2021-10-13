@@ -21,7 +21,8 @@ export default function SimpleMenu() {
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    alert("Are you sure you want to LOGOUT?");
+    window.location.href = "./";
   };
 
 
@@ -38,7 +39,7 @@ export default function SimpleMenu() {
     <Navbar.Collapse id="responsive-navbar-nav">
       
       <Nav className="me-auto" style={{paddingRight:40}}>
-        <Nav.Link as={Link} to="/">Home</Nav.Link>
+        <Nav.Link as={Link} to="/home">Home</Nav.Link>
         <NavDropdown title="Candidate" id="basic-nav-dropdown">
         <NavDropdown.Item href="View">View Candidate</NavDropdown.Item>
           <NavDropdown.Item href="Add">Add Candidate</NavDropdown.Item>

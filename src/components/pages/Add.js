@@ -3,10 +3,51 @@ import axios from 'axios'
 import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
 
 class NameForm extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      items:[],
+      isLoaded: false,
+    }
+  }
+ 
+
+  async componentDidMount(){
+    var accessToken = localStorage.getItem("access")
+
+    const result = axios.create({
+      url: 'https://pg-backend-server.herokuapp.com/api/login/',
+      headers: {
+      Authorization:`Bearer ${accessToken}`
+      }
+    });
+   
+  const data = await result.post('https://pg-backend-server.herokuapp.com/api/CandidateDataCreate/')
+
+  if (data.status == 200) {
+    
+    this.setState({
+      items:data.data,
+      isLoaded:true
+    })
+  }
+  console.log(this.state)
+  
+  //  fetch('https://pg-backend-server.herokuapp.com/api/CandidateData/?format=json')
+  //  .then(res => res.json())
+  //  .then(json => {
+    //  this.setState({
+    //    isLoaded:true,
+    //    items:json,
+    //  })
+  //  }) 
+  }
+
   render() {
     return (
       <div className="container" style={{width:"60%"}}>
         <h2 style={{textAlign:"center"}}>Add Candidate</h2><br></br>
+      
       <Form action="https://pg-backend-server.herokuapp.com/api/CandidateDataCreate/?format=json" method="post">
   <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
     <Form.Label column sm={3}>
