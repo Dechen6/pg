@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import axios from 'axios'
 import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
-import './Table.css';
-class View extends Component{
+import LongMenu from './threedotInterview'
+import axios from "axios";
+class Viewinterview extends Component{
 
   constructor(props){
     super(props)
@@ -23,7 +23,7 @@ class View extends Component{
       }
     });
    
-  const data = await result.get('https://pg-backend-server.herokuapp.com/api/CandidateData/')
+  const data = await result.get('https://pg-backend-server.herokuapp.com/api/CandidateInterview/')
 
   if (data.status == 200) {
     
@@ -43,18 +43,21 @@ class View extends Component{
     //  })
   //  }) 
   }
+
   render(){
     const {isLoaded,items} = this.state
     
     if(!isLoaded){
-      return <div>Loading...</div>;
+      return <div className="spinner-border text-success" role="status">
+                    <span className="visually-hidden">Loading...</span>
+              </div>
     }
     else{
 
     return(
       <div style={{paddingLeft:50, paddingRight:50}}>
         <Row>
-    <Col sm={6}><h2>Candidate Details</h2>
+    <Col sm={6}><h2>Interviewed Candidate List</h2>
     </Col>
 
     <Col sm={6}>
@@ -70,48 +73,31 @@ class View extends Component{
     </Col>
 
 </Row>
-       <Table className="tabledetail" striped bordered hover>
+       <Table striped bordered hover>
        <thead>
     <tr>
       <th>ID</th>
-      <th>Candidate Name</th>
-      <th>Gender</th>
-      <th>Email</th>
-      <th>Profile on sunrise</th>
-      <th>DoB</th>
-      <th>Country</th>
-      <th>Registeration Date</th>
-      <th>Job Applied</th>
-      <th>Education</th>
-      <th>JLPT</th>
-      <th>Employment Status</th>
-      <th>Employment Date</th>
-      <th>Work Experience</th>
-      <th>Visa Date</th>
-      <th>Remarks</th>
-      <th>Resume Link</th>
+      <th>cd_id</th>
+      <th>Hiring Company</th>
+      <th> Interview Date</th>
+      <th>result</th>
+      <th>Reason</th>
+      <th>End Date</th>
+      <th>Note</th>
     </tr>
   </thead>
   <tbody>
           {items.map(item => (
             <tr key={item.id}>
-              <td> {item.id}</td>
-              <td> {item.candidate_name}</td>
-              <td>{item.gender}</td>
-              <td>{item.email}</td>
-              <td>{item.profile_on_sunrise}</td>
-              <td>{item.dob}</td>
-              <td>{item.country}</td>
-              <td>{item.registeration_date}</td>
-              <td>{item.job_applied}</td>
-              <td>{item.education}</td>
-              <td>{item.jlpt}</td>
-              <td>{item.employment_status}</td>
-              <td>{item.employment_date}</td>
-              <td>{item.work_experience}</td>
-              <td>{item.visa_date}</td>
-              <td>{item.remarks}</td>
-              <td>{item.resume_link}</td>
+              <td>{item.id}</td>
+              <td> {item.cd_id}</td>
+              <td> {item.hiring_company}</td>
+              <td>{item.interview_date}</td>
+              <td>{item.result}</td>
+              <td>{item.reason}</td>
+              <td>{item.end_date}</td>
+              <td>{item.note}</td>
+              <td><LongMenu id={item.id}/></td>
               </tr>
           ))} 
     </tbody>
@@ -121,4 +107,4 @@ class View extends Component{
     }
   }
 }
-export default View
+export default Viewinterview

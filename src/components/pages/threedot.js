@@ -4,10 +4,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import axios from 'axios'
+import ProgressBar from 'progress';
+import swal from 'sweetalert';
 
 const ITEM_HEIGHT = 48;
+const baseurl = "http://localhost:3000/editcandidate/";
 
-export default function LongMenu(props) {
+export default function LongMenu(props) {  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -19,13 +22,21 @@ export default function LongMenu(props) {
 
  const edit = () => {
       console.log(props.id)
+      window.location.replace(baseurl+props.id);
   };
 
+  
   const deletedata = () => {
+    var accessToken = localStorage.getItem("access")
+    const result = axios.create({
+      headers: {
+      Authorization:`Bearer ${accessToken}`
+      }
+    });
     var url = "https://pg-backend-server.herokuapp.com/api/CandidateDataDelete/"+props.id;
     var r = window.confirm("Are you sure? Data cannot be reverted");
     if (r == true) {
-      axios
+     result
       .delete(`${url}`)
       .then(() => {
         alert("Post deleted!");

@@ -3,15 +3,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/App.css'
 import Login from "./components/pages/Login";
 import NavbarComp from "./components/pages/NavbarComp";
-import Add from "./components/pages/Add";
-import View from "./components/pages/View";
-import Interviewed from "./components/pages/Interviewed";
+import Addcandidate from "./components/pages/Addcandidate";
+import Viewcandidate from "./components/pages/Viewcandidate";
+import Viewinterview from "./components/pages/Viewinterview";
 import Home from "./components/pages/Home";
 import Details from "./components/pages/Details";
 import Addinterviewed from "./components/pages/Addinterviewed"
 import editcadidate from "./components/pages/Editcandidate";
 import {BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 import Editcandidate from "./components/pages/Editcandidate";
+import Editinterview from "./components/pages/Editinterview";
+import Import from "./components/pages/Import"
 
 function App(){
 
@@ -30,14 +32,17 @@ function App(){
     <Router>
     <div className="App">
       <NavbarComp/>
-     
+      <br></br>
       <Route path="/home" exact component={Home}/>
-      <Route path="/Add" component={Add}/>
-      <Route path="/View" component={View}/>
+      <Route path="/Addcandidate" component={Addcandidate}/>
+      <Route path="/Editcandidate/:id" component={Editcandidate}/>
+      <Route path="/Viewcandidate" component={Viewcandidate}/>
       <Route path="/Details" component={Details}/>
-      <Route path="/Interviewed" component={Interviewed}/>
+      <Route path="/Viewinterview" component={Viewinterview}/>
       <Route path="/Addinterviewed" component={Addinterviewed}/>
-      <Route path="/Editcandidate" component={Editcandidate}/>
+      <Route path="/Editinterview/:id" component={Editinterview}/>
+      <Route path="/Import" component={Import}/>
+
     </div>
     </Router> 
    );

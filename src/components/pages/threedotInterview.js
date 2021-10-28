@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import axios from 'axios'
 
 const ITEM_HEIGHT = 48;
-
+const baseurl = "http://localhost:3000/editinterview/";
 export default function LongMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -17,9 +17,10 @@ export default function LongMenu(props) {
     setAnchorEl(null);
   };
 
- const edit = () => {
-      console.log(props.id)
-  };
+  const edit = () => {
+    console.log(props.id)
+    window.location.replace(baseurl+props.id);
+};
 
   const deletedata = () => {
     var url = "https://pg-backend-server.herokuapp.com/api/CandidateInterviewDelete/"+props.id;
@@ -70,7 +71,7 @@ function updatePost() {
           },
         }}
       >
-        <MenuItem onClick={updatePost}>
+        <MenuItem onClick={edit}>
             Edit
           </MenuItem>
           <MenuItem onClick={deletedata}>
