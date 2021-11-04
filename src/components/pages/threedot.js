@@ -9,6 +9,7 @@ import swal from 'sweetalert';
 
 const ITEM_HEIGHT = 48;
 const baseurl = "http://localhost:3000/editcandidate/";
+const addinterview = "http://localhost:3000/AddInterviewed/";
 
 export default function LongMenu(props) {  
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -24,6 +25,10 @@ export default function LongMenu(props) {
       console.log(props.id)
       window.location.replace(baseurl+props.id);
   };
+
+  const add =() => {
+   window.location.replace(addinterview+props.id)
+  }
 
   
   const deletedata = () => {
@@ -44,6 +49,8 @@ export default function LongMenu(props) {
       });
     } 
 };
+
+
   return (
     <div>
       <IconButton
@@ -71,11 +78,15 @@ export default function LongMenu(props) {
           },
         }}
       >
-        <MenuItem onClick={edit}>
+        <MenuItem onClick={edit} style={{paddingLeft:50}}>
             Edit
           </MenuItem>
-          <MenuItem onClick={deletedata}>
+          <br></br>
+          <MenuItem onClick={deletedata} style={{paddingLeft:50}}>
             Delete
+          </MenuItem>
+          <MenuItem onClick={add} style={{paddingLeft:50}}>
+            Add Interview
           </MenuItem>
       </Menu>
     </div>

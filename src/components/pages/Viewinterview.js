@@ -1,20 +1,33 @@
 import React, {Component} from "react";
 import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
 import LongMenu from './threedotInterview'
+import { Link , useParams} from 'react-router-dom';
 import axios from "axios";
-class Viewinterview extends Component{
-
+import Pagination from '@material-ui/lab/Pagination';
+var n = 1
+var e = ""
+var num_of_page =0;
+class Viewcandidate extends Component{
+  
   constructor(props){
     super(props)
+   
     this.state = {
       items:[],
       isLoaded: false,
     }
+    this.search = this.search.bind(this);
   }
  
+  
 
   async componentDidMount(){
-    var accessToken = localStorage.getItem("access")
+ 
+    this.paginate(e,n);
+  }
+
+ async paginate(event,value){
+   var accessToken = localStorage.getItem("access")
 
     const result = axios.create({
       url: 'https://pg-backend-server.herokuapp.com/api/login/',
@@ -22,33 +35,45 @@ class Viewinterview extends Component{
       Authorization:`Bearer ${accessToken}`
       }
     });
-   
-  const data = await result.get('https://pg-backend-server.herokuapp.com/api/CandidateInterview/')
+    const data = await result.get('https://pg-backend-server.herokuapp.com/api/pagesInterview/?page='+value)
 
-  if (data.status == 200) {
-    
+      if (data.status == 200) {
+           num_of_page = Math.ceil((data.data.count / 10)) ;
+           this.setState({
+            items:data.data.results,
+            isLoaded:true
+           })
+      }
+   
+  }
+
+async search(event) {
+  event.preventDefault();
+  const key = event.target.search.value
+  var accessToken = localStorage.getItem("access")
+
+  const result = axios.create({
+    url: 'https://pg-backend-server.herokuapp.com/api/login/',
+    headers: {
+    Authorization:`Bearer ${accessToken}`
+    }
+  });
+ 
+  const tmpData = await result.get('https://pg-backend-server.herokuapp.com/api/Search/?search='+key)
+
+  if (tmpData.status == 200) {
+      
     this.setState({
-      items:data.data,
+      items:tmpData.data,
       isLoaded:true
     })
   }
-  console.log(this.state)
-  
-  //  fetch('https://pg-backend-server.herokuapp.com/api/CandidateData/?format=json')
-  //  .then(res => res.json())
-  //  .then(json => {
-    //  this.setState({
-    //    isLoaded:true,
-    //    items:json,
-    //  })
-  //  }) 
-  }
-
+}
   render(){
     const {isLoaded,items} = this.state
     
     if(!isLoaded){
-      return <div className="spinner-border text-success" role="status">
+      return   <div className="spinner-border text-success" role="status">
                     <span className="visually-hidden">Loading...</span>
               </div>
     }
@@ -57,23 +82,18 @@ class Viewinterview extends Component{
     return(
       <div style={{paddingLeft:50, paddingRight:50}}>
         <Row>
-    <Col sm={6}><h2>Interviewed Candidate List</h2>
-    </Col>
+          <Col sm={6}><h2>Interviewed Candidate List</h2>
+          </Col>
 
-    <Col sm={6}>
-            <Form className="d-flex" style={{width:300}}>
-                <FormControl
-                type="search"
-                placeholder="Search Candidate"
-                className="mr-2"
-                aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-            </Form>
-    </Col>
+          <Col sm={6}>
+                  <Form onSubmit={this.search} className="d-flex" style={{width:300}}>
+                      <FormControl type="text" placeholder="Search Candidate" className="mr-2" name="search" aria-label="Search"/>&nbsp;
+                      <Button type="submit" variant="outline-success">Search</Button>
+                  </Form>
+          </Col>
 
-</Row>
-       <Table striped bordered hover>
+      </Row>
+      <Table striped bordered hover>
        <thead>
     <tr>
       <th>ID</th>
@@ -102,9 +122,23 @@ class Viewinterview extends Component{
           ))} 
     </tbody>
         </Table>
+        <div>
+        <Row>
+          <Col sm={4}>
+          </Col>
+
+          <Col sm={4}>
+          <Pagination  count={num_of_page} color="primary" onChange={(e,v)=> this.paginate(e,v)}/>
+          <br></br>
+          </Col>
+
+          <Col sm={4}>
+          </Col>
+       </Row>
+        </div>
     </div>
     )
     }
   }
 }
-export default Viewinterview
+export default Viewcandidate

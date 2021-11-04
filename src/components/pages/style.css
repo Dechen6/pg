@@ -115,10 +115,6 @@
 	font-size: 15px;
 }
 
-.input-div.focus > .i > i{
-	color: #38d39f;
-}
-
 .input-div > div > input{
 	position: absolute;
 	left: 0;

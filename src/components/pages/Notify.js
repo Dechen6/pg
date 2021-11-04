@@ -1,17 +1,11 @@
 import React, {Component} from "react";
+import axios from 'axios'
 import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
-import LongMenu from './threedot'
-import { Link , useParams} from 'react-router-dom';
-import axios from "axios";
-import Pagination from '@material-ui/lab/Pagination';
-var n = 1
-var e = ""
-var num_of_page =0;
-class Viewcandidate extends Component{
-  
+import './Table.css';
+class View extends Component{
+
   constructor(props){
     super(props)
-   
     this.state = {
       items:[],
       isLoaded: false,
@@ -19,15 +13,9 @@ class Viewcandidate extends Component{
     this.search = this.search.bind(this);
   }
  
-  
 
   async componentDidMount(){
- 
-    this.paginate(e,n);
-  }
-
- async paginate(event,value){
-   var accessToken = localStorage.getItem("access")
+    var accessToken = localStorage.getItem("access")
 
     const result = axios.create({
       url: 'https://pg-backend-server.herokuapp.com/api/login/',
@@ -35,19 +23,29 @@ class Viewcandidate extends Component{
       Authorization:`Bearer ${accessToken}`
       }
     });
-    const data = await result.get('https://pg-backend-server.herokuapp.com/api/pagesCandidate/?page='+value)
-
-      if (data.status == 200) {
-           num_of_page = Math.ceil((data.data.count / 10)) ;
-           this.setState({
-            items:data.data.results,
-            isLoaded:true
-           })
-      }
    
-  }
+  const data = await result.get('https://pg-backend-server.herokuapp.com/api/Notification/')
 
-async search(event) {
+  if (data.status == 200) {
+    
+    this.setState({
+      items:data.data,
+      isLoaded:true
+    })
+  }
+  console.log(this.state)
+  
+  //  fetch('https://pg-backend-server.herokuapp.com/api/CandidateData/?format=json')
+  //  .then(res => res.json())
+  //  .then(json => {
+    //  this.setState({
+    //    isLoaded:true,
+    //    items:json,
+    //  })
+  //  }) 
+  }
+  async search(event)
+{
   event.preventDefault();
   const key = event.target.search.value
   var accessToken = localStorage.getItem("access")
@@ -73,27 +71,20 @@ async search(event) {
     const {isLoaded,items} = this.state
     
     if(!isLoaded){
-      return   <div className="spinner-border text-success" role="status">
-                    <span className="visually-hidden">Loading...</span>
-              </div>
+      return <div className="spinner-border text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+             </div>
     }
     else{
 
     return(
       <div style={{paddingLeft:50, paddingRight:50}}>
-        <Row>
-          <Col sm={6}><h2>Candidate List</h2>
-          </Col>
-
-          <Col sm={6}>
-                  <Form onSubmit={this.search} className="d-flex" style={{width:300}}>
-                      <FormControl type="text" placeholder="Search Candidate" className="mr-2" name="search" aria-label="Search"/>&nbsp;
-                      <Button type="submit" variant="outline-success">Search</Button>
-                  </Form>
-          </Col>
-
-      </Row>
-      <Table className="tabledetail" striped bordered hover>
+        <div style={{textAlign:"center"}}>
+          <h2>Notification</h2><h4>Candidate having more than 3 years of work experience</h4>
+          <br></br>
+      </div>
+      
+       <Table className="tabledetail" striped bordered hover>
        <thead>
     <tr>
       <th>ID</th>
@@ -139,23 +130,9 @@ async search(event) {
           ))} 
     </tbody>
         </Table>
-        <div>
-        <Row>
-          <Col sm={4}>
-          </Col>
-
-          <Col sm={4}>
-          <Pagination  count={num_of_page}  color="primary" onChange={(e,v)=> this.paginate(e,v)}/>
-          <br></br>
-          </Col>
-
-          <Col sm={4}>
-          </Col>
-       </Row>
-        </div>
     </div>
     )
     }
   }
 }
-export default Viewcandidate
+export default View

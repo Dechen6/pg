@@ -1,51 +1,27 @@
-import React, {Component} from "react";
-import { Nav,Button} from 'react-bootstrap'
-import { Link , useParams} from 'react-router-dom';
-import axios from "axios";
+import React, { Component } from 'react';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import {NavDropdown, Navbar, Container, Nav, Button} from 'react-bootstrap'
 import swal from 'sweetalert';
 import * as mdb from 'mdb-ui-kit'; // lib
 import { Input, dropdown } from 'mdb-ui-kit'; // module
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 
 
-class NavbarComp extends Component{
+export default function SimpleMenu() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  constructor(props){
-    super(props)
-   
-    this.state = {
-      items:[],
-      no_len:0,
-      isLoaded: false,
-    }
-  }
- 
-  
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  async componentDidMount(){
-  
-    var accessToken = localStorage.getItem("access")
-
-    const result = axios.create({
-      url: 'https://pg-backend-server.herokuapp.com/api/login/',
-      headers: {
-      Authorization:`Bearer ${accessToken}`
-      }
-    });
-   
-  const data = await result.get('https://pg-backend-server.herokuapp.com/api/Notification/')
-
-  if (data.status == 200) {
-    
-    this.setState({
-      items:data.data,
-      isLoaded:true
-    })
-  }
-   var notificationCount = this.state.items.length;
-  }
-
-  async logout(event){
+  const handleClose = () => {
     swal({
       title:"LOGOUT",
       buttons: {
@@ -59,22 +35,11 @@ class NavbarComp extends Component{
                       }
       });
   };
-  
 
-  render(){
-    var {items,no_len} = this.state
-    var notificationCount = this.state.items.length;
-    var notificationData = []
 
-    no_len = items.length+5 > 6?items.length+5:items.length;
-
-    for (let index = 0; index < no_len-items.length; index++) {
-      notificationData.push(<a className="dropdown-item" key = {index} href="Notify">{items[index].candidate_name}</a>)
-    }
-    // notificationData.push(<button className="dropdown-item btn btn-primary"  onClick={showAll}>show all</button>)
-
-    return(
-      <div>
+        return (
+        
+            <div>
     {/* Navbar */}
         <nav style={{padding:20}} className="navbar navbar-expand-lg navbar-light bg-light" >
           {/* Container wrapper */}
@@ -107,10 +72,10 @@ class NavbarComp extends Component{
                 </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li>
-                      <a class="dropdown-item" href="/Addcandidate">Add Candidate</a>
+                      <a class="dropdown-item" href="Addcandidate">Add Candidate</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/Viewcandidate">View Candidate</a>
+                      <a class="dropdown-item" href="Viewcandidate">View Candidate</a>
                     </li>
                   </ul>
               </li>
@@ -128,10 +93,10 @@ class NavbarComp extends Component{
                 </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li>
-                      <a class="dropdown-item" href="/AddInterviewed">Add Interview</a>
+                      <a class="dropdown-item" href="AddInterviewed">Add Interview</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/Viewinterview">View Interview</a>
+                      <a class="dropdown-item" href="Viewinterview">View Interview</a>
                     </li>
                   </ul>
               </li>
@@ -144,47 +109,35 @@ class NavbarComp extends Component{
             {/* Collapsible wrapper */}
             {/* Right elements */}
             <div className="d-flex align-items-center">
-
               {/* Notifications */}
-              {/* <a className="text-reset me-3 dropdown-toggle hidden-arrow" href="Notify" role="button">
+              <a className="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                 <i className="fas fa-bell" />
-                <span className="badge rounded-pill badge-notification bg-danger">{notificationCount}</span>
+                <span className="badge rounded-pill badge-notification bg-danger">1</span>
               </a>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                  <a onClick={this.logout} className="dropdown-item" href="#"  >Logout</a>
-                </li>
-              </ul> */}
-
-<a className="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                <i className="fas fa-bell" />
-                <span className="badge rounded-pill badge-notification bg-danger">{notificationCount}</span>
-              </a>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li>
-                  {no_len}
+                  <a className="dropdown-item" href="viewcandidate">Some news</a>
                 </li>
                 <li>
-                  {notificationData}
+                  <a className="dropdown-item" href="#">Another news</a>
                 </li>
                 <li>
-                  <Button variant="primary" onClick={()=>no_len=10}>
-                  Primary
-                </Button>
+                  <a className="dropdown-item" href="#">Something else here</a>
                 </li>
               </ul>
-
-
-
-              &nbsp;&nbsp;&nbsp;&nbsp;
-
               {/* Avatar */}
               <a className="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                 <img src="https://mdbootstrap.com/img/new/avatars/2.jpg" className="rounded-circle" height={25} alt="" loading="lazy" />
               </a>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                  <a onClick={this.logout} className="dropdown-item" href="#"  >Logout</a>
+                  <a className="dropdown-item" href="#">My profile</a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">Settings</a>
+                </li>
+                <li>
+                  <a className="dropdown-item" onClick={handleClose}>Logout</a>
                 </li>
               </ul>
             </div>
@@ -193,8 +146,7 @@ class NavbarComp extends Component{
           {/* Container wrapper */}
         </nav>
         {/* Navbar */}
-</div>
-    )
-    }
-  }
-export default NavbarComp
+</div>             
+          )
+      }
+  

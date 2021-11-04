@@ -231,7 +231,7 @@ const result = axios.create({
 
 
 
-  <form action="https://pg-backend-server.herokuapp.com/api/upload/" method="post">
+
   <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
     <Form.Label column sm={3}>
     Resume link
@@ -240,7 +240,7 @@ const result = axios.create({
       <Form.Control  type="file" name="resume_link" placeholder="Resume_link" />
     </Col>
   </Form.Group>
-  </form>
+
 
   <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
     <Form.Label column sm={3}>

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FloatingLabel, Form } from 'react-bootstrap';
-import {Navbar, Container, Nav, Table, Pagination, Button} from 'react-bootstrap'
 import './style.css';
 import axios from "axios";
-import d from "../services/credentials"
+import { MDBInput } from 'mdb-react-ui-kit';
 
 async function loginUser() {
   
@@ -47,13 +45,13 @@ export default function Login({ setToken }) {
           <div className="login-content">
           <form onSubmit={handleSubmit}>
           <h2 className="title">Welcome</h2>
+          <h3><b>Peace Growba</b></h3>
           <div className="input-div one">
            		   <div className="i">
            		   		<i className="fa fa-user"></i>
            		   </div>
            		   <div className="div">
-           		   		<h5>Username</h5>
-                      <input type="text" onChange={e => setUserName(e.target.value)} />
+                      <MDBInput label='User' id='typeText' type='text' onChange={e => setUserName(e.target.value)} />
            		   </div>
            		</div>
            		<div className="input-div pass">
@@ -61,8 +59,7 @@ export default function Login({ setToken }) {
            		    	<i className="fas fa-lock"></i>
            		   </div>
            		   <div className="div">
-           		    	<h5>Password</h5>
-           		    	<input type="password" onChange={e => setPassword(e.target.value)} />
+                     <MDBInput label='Password' id='typePassword' type='password' onChange={e => setPassword(e.target.value)} />
             	   </div>
             	</div>
             	<a href="#">Forgot Password?</a>

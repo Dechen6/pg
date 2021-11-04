@@ -71,10 +71,11 @@ function updatePost() {
           },
         }}
       >
-        <MenuItem onClick={edit}>
+        <MenuItem onClick={edit} style={{paddingLeft:50}}>
             Edit
           </MenuItem>
-          <MenuItem onClick={deletedata}>
+          <br></br>
+          <MenuItem onClick={deletedata} style={{paddingLeft:50}}>
             Delete
           </MenuItem>
       </Menu>

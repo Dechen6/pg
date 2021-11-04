@@ -14,6 +14,7 @@ import {BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 import Editcandidate from "./components/pages/Editcandidate";
 import Editinterview from "./components/pages/Editinterview";
 import Import from "./components/pages/Import"
+import Notify from "./components/pages/Notify"
 
 function App(){
 
@@ -33,15 +34,16 @@ function App(){
     <div className="App">
       <NavbarComp/>
       <br></br>
-      <Route path="/home" exact component={Home}/>
-      <Route path="/Addcandidate" component={Addcandidate}/>
-      <Route path="/Editcandidate/:id" component={Editcandidate}/>
-      <Route path="/Viewcandidate" component={Viewcandidate}/>
-      <Route path="/Details" component={Details}/>
-      <Route path="/Viewinterview" component={Viewinterview}/>
-      <Route path="/Addinterviewed" component={Addinterviewed}/>
-      <Route path="/Editinterview/:id" component={Editinterview}/>
-      <Route path="/Import" component={Import}/>
+      <Route path="/home/" exact component={Home}/>
+      <Route path="/Addcandidate/" component={Addcandidate}/>
+      <Route path="/Editcandidate/:id/" component={Editcandidate}/>
+      <Route path="/Viewcandidate/" component={Viewcandidate}/>
+      <Route path="/Details/" component={Details}/>
+      <Route path="/Viewinterview/" component={Viewinterview}/>
+      <Route path="/Addinterviewed/" component={Addinterviewed}/>
+      <Route path="/Editinterview/:id/" component={Editinterview}/>
+      <Route path="/Import/" component={Import}/>
+      <Route path="/Notify/" component={Notify}/>
 
     </div>
     </Router> 

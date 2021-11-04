@@ -4,11 +4,11 @@ import LongMenu from './threedot'
 import { Link , useParams} from 'react-router-dom';
 import axios from "axios";
 import Pagination from '@material-ui/lab/Pagination';
-import * as mdb from 'mdb-ui-kit'; // lib
-import { Input } from 'mdb-ui-kit'; // module
-
+var n = 1
+var e = ""
+var num_of_page =0;
 class Viewcandidate extends Component{
-
+  
   constructor(props){
     super(props)
    
@@ -16,13 +16,18 @@ class Viewcandidate extends Component{
       items:[],
       isLoaded: false,
     }
+    this.search = this.search.bind(this);
   }
  
   
 
   async componentDidMount(){
  
-    var accessToken = localStorage.getItem("access")
+    this.paginate(e,n);
+  }
+
+ async paginate(event,value){
+   var accessToken = localStorage.getItem("access")
 
     const result = axios.create({
       url: 'https://pg-backend-server.herokuapp.com/api/login/',
@@ -30,28 +35,40 @@ class Viewcandidate extends Component{
       Authorization:`Bearer ${accessToken}`
       }
     });
-   
-  const data = await result.get('https://pg-backend-server.herokuapp.com/api/CandidateData/')
+    const data = await result.get('https://pg-backend-server.herokuapp.com/api/pagesCandidate/?page='+value)
 
-  if (data.status == 200) {
-    
+      if (data.status == 200) {
+           num_of_page = Math.ceil((data.data.count / 10)) ;
+           this.setState({
+            items:data.data.results,
+            isLoaded:true
+           })
+      }
+   
+  }
+
+async search(event) {
+  event.preventDefault();
+  const key = event.target.search.value
+  var accessToken = localStorage.getItem("access")
+
+  const result = axios.create({
+    url: 'https://pg-backend-server.herokuapp.com/api/login/',
+    headers: {
+    Authorization:`Bearer ${accessToken}`
+    }
+  });
+ 
+  const tmpData = await result.get('https://pg-backend-server.herokuapp.com/api/Search/?search='+key)
+
+  if (tmpData.status == 200) {
+      
     this.setState({
-      items:data.data,
+      items:tmpData.data,
       isLoaded:true
     })
   }
-  console.log(this.state)
-  
-  //  fetch('https://pg-backend-server.herokuapp.com/api/CandidateData/?format=json')
-  //  .then(res => res.json())
-  //  .then(json => {
-    //  this.setState({
-    //    isLoaded:true,
-    //    items:json,
-    //  })
-  //  }) 
-  }
-
+}
   render(){
     const {isLoaded,items} = this.state
     
@@ -69,14 +86,9 @@ class Viewcandidate extends Component{
           </Col>
 
           <Col sm={6}>
-                  <Form className="d-flex" style={{width:300}}>
-                      <FormControl
-                      type="search"
-                      placeholder="Search Candidate"
-                      className="mr-2"
-                      aria-label="Search"
-                      />
-                      <Button variant="outline-success">Search</Button>
+                  <Form onSubmit={this.search} className="d-flex" style={{width:300}}>
+                      <FormControl type="text" placeholder="Search Candidate" className="mr-2" name="search" aria-label="Search"/>&nbsp;
+                      <Button type="submit" variant="outline-success">Search</Button>
                   </Form>
           </Col>
 
@@ -97,12 +109,25 @@ class Viewcandidate extends Component{
               <td> {item.candidate_name}</td>
               <td>{item.gender}</td>
               <td><Link to="/Details">View details</Link></td>
-                <td><LongMenu id={item.id}/></td>
+                <td><LongMenu id={item.id} name={item.candidate_name}/></td>
               </tr>
           ))} 
     </tbody>
         </Table>
-        <Pagination count={4} variant="outlined" color="primary" />
+        <div>
+        <Row>
+          <Col sm={4}>
+          </Col>
+
+          <Col sm={4}>
+          <Pagination  count={num_of_page}  color="primary" onChange={(e,v)=> this.paginate(e,v)}/>
+          <br></br>
+          </Col>
+
+          <Col sm={4}>
+          </Col>
+       </Row>
+        </div>
     </div>
     )
     }

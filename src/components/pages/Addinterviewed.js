@@ -2,7 +2,10 @@ import React, {Component} from "react";
 import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
 import axios from "axios"
 import swal from 'sweetalert';
-class NameForm extends React.Component {
+
+var currentURl = window.location.href;
+// var name = currentURl.split('/')[4];
+class Addinterviewed extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -13,7 +16,7 @@ class NameForm extends React.Component {
  
 
   async componentDidMount(){
-
+    
   }
 
   async handleSubmit(event){
@@ -81,7 +84,7 @@ console.log("post data")
     cd_id
     </Form.Label>
     <Col sm={9}>
-      <Form.Control   type="number" name="cd_id" placeholder="cd_id" />
+      <Form.Control   type="text" name="cd_id" placeholder="cd_id"/>
     </Col>
   </Form.Group>
 
@@ -160,4 +163,4 @@ console.log("post data")
     );
   }
 }
-export default NameForm
+export default Addinterviewed
