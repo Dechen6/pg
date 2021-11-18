@@ -45,16 +45,16 @@ function App(){
     <div className="App">
       <NavbarComp/>
       <br></br>
-      <Route path="https://tij6.herokuapp.com/home/" exact component={Home}/>
-      <Route path="https://tij6.herokuapp.com/Addcandidate/" component={Addcandidate}/>
-      <Route path="https://tij6.herokuapp.com/Editcandidate/:id/" component={Editcandidate}/>
-      <Route path="https://tij6.herokuapp.com/Viewcandidate/" component={Viewcandidate}/>
-      <Route path="https://tij6.herokuapp.com/Details/" component={Details}/>
-      <Route path="https://tij6.herokuapp.com/Viewinterview/" component={Viewinterview}/>
-      <Route path="https://tij6.herokuapp.com/Addinterviewed/" component={Addinterviewed}/>
-      <Route path="https://tij6.herokuapp.com/Editinterview/:id/" component={Editinterview}/>
-      <Route path="https://tij6.herokuapp.com/Import/" component={Import}/>
-      <Route path="https://tij6.herokuapp.com/Notify/" component={Notify}/>
+      <Route path="/home/" exact component={Home}/>
+      <Route path="/Addcandidate/" component={Addcandidate}/>
+      <Route path="/Editcandidate/:id/" component={Editcandidate}/>
+      <Route path="/Viewcandidate/" component={Viewcandidate}/>
+      <Route path="/Details/" component={Details}/>
+      <Route path="/Viewinterview/" component={Viewinterview}/>
+      <Route path="/Addinterviewed/" component={Addinterviewed}/>
+      <Route path="/Editinterview/:id/" component={Editinterview}/>
+      <Route path="/Import/" component={Import}/>
+      <Route path="/Notify/" component={Notify}/>
     </div>
     </Router> 
    );
