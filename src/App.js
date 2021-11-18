@@ -9,12 +9,14 @@ import Viewinterview from "./components/pages/Viewinterview";
 import Home from "./components/pages/Home";
 import Details from "./components/pages/Details";
 import Addinterviewed from "./components/pages/Addinterviewed"
-import editcadidate from "./components/pages/Editcandidate";
 import {BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 import Editcandidate from "./components/pages/Editcandidate";
 import Editinterview from "./components/pages/Editinterview";
 import Import from "./components/pages/Import"
 import Notify from "./components/pages/Notify"
+import Register from "./components/pages/Register"
+import axios from "axios";
+
 
 function App(){
 
@@ -24,6 +26,15 @@ function App(){
       <Router>
     <div className="App">
       <Route path="/" exact component={Login}/>
+    </div>
+    </Router> 
+    );
+  }
+  else if(pathname == "/Register"){
+    return (
+      <Router>
+    <div className="App">
+      <Route path="/Register" exact component={Register}/>
     </div>
     </Router> 
     );
@@ -44,7 +55,6 @@ function App(){
       <Route path="/Editinterview/:id/" component={Editinterview}/>
       <Route path="/Import/" component={Import}/>
       <Route path="/Notify/" component={Notify}/>
-
     </div>
     </Router> 
    );

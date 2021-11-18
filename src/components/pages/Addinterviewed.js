@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
+import { Button, Form, Row, Col} from 'react-bootstrap'
 import axios from "axios"
 import swal from 'sweetalert';
 
@@ -16,7 +16,26 @@ class Addinterviewed extends React.Component {
  
 
   async componentDidMount(){
+    var accessToken = localStorage.getItem("access")
+
+    const result = axios.create({
+      url: 'https://pg-backend-server.herokuapp.com/api/login/',
+      headers: {
+      Authorization:`Bearer ${accessToken}`
+      }
+    });
+    var currentURl = window.location.href;
+    var id = currentURl.split('/')[4];
+  const data = await result.get('https://pg-backend-server.herokuapp.com/api/CandidateDataId/'+id)
+
+  if (data.status == 200) {
     
+    this.setState({
+      items:data.data,
+      isLoaded:true
+    })
+  }
+  console.log(this.state)
   }
 
   async handleSubmit(event){
@@ -43,7 +62,7 @@ console.log("post data")
     const data = await result.post('https://pg-backend-server.herokuapp.com/api/CandidateInterviewCreate/',
     {
 
-    "cd_id": tmpdata.cd_id,
+    "cd_id": tmpdata.name,
     "hiring_company": tmpdata.hiring_company,
     "interview_date": tmpdata.interview_date,
     "result": tmpdata.result ,
@@ -53,6 +72,7 @@ console.log("post data")
     }
 
     ) .then(function (response) {
+      console.log(response)
       swal({
         title:"Candidate Added Successfully",
         buttons: {
@@ -74,6 +94,11 @@ console.log("post data")
   }
 
   render() {
+     const {isLoaded,items} = this.state
+     if(!isLoaded){
+      return <div>Loading...</div>;
+    }
+    else{
     return (
       <div className="container" style={{width:"60%"}}>
         <h2 style={{textAlign:"center"}}>Add Interviewed Candidate</h2><br></br>
@@ -81,19 +106,19 @@ console.log("post data")
       <Form onSubmit={this.handleSubmit}>
   <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
     <Form.Label column sm={3}>
-    cd_id
+    Name
     </Form.Label>
     <Col sm={9}>
-      <Form.Control   type="text" name="cd_id" placeholder="cd_id"/>
+      <Form.Control   type="text" name="name" placeholder="name" defaultValue={items.candidate_name}/>
     </Col>
-  </Form.Group>
+  </Form.Group> 
 
-  <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
+  <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail" >
     <Form.Label column sm={3}>
     Hiring Company
     </Form.Label>
     <Col sm={9}>
-      <Form.Control  type="text" name="hiring_company" placeholder="Hiring Company" />
+      <Form.Control  type="text" name="hiring_company" placeholder="Hiring Company" required />
     </Col>
   </Form.Group>
 
@@ -102,7 +127,7 @@ console.log("post data")
     Interview Date
     </Form.Label>
     <Col sm={9}>
-      <Form.Control  type="date" name="interview_date" placeholder="Interview Date" />
+      <Form.Control  type="date" name="interview_date" placeholder="Interview Date" required/>
     </Col>
   </Form.Group>
 
@@ -111,7 +136,7 @@ console.log("post data")
     Result
     </Form.Label>
     <Col sm={9}>
-      <Form.Control  type="text" name="result" placeholder="Result" />
+      <Form.Control  type="text" name="result" placeholder="Result" required/>
     </Col>
   </Form.Group>
 
@@ -120,7 +145,7 @@ console.log("post data")
     Reason
     </Form.Label>
     <Col sm={9}>
-      <Form.Control  type="text" name="reason" placeholder="Reason" />
+      <Form.Control  type="text" name="reason" placeholder="Reason" required/>
     </Col>
   </Form.Group>
 
@@ -129,7 +154,7 @@ console.log("post data")
     End Date
     </Form.Label>
     <Col sm={9}>
-      <Form.Control  type="date" name="end_date" placeholder="End Date" />
+      <Form.Control  type="date" name="end_date" placeholder="End Date" required/>
     </Col>
   </Form.Group>
 
@@ -138,7 +163,7 @@ console.log("post data")
     Registeration date
     </Form.Label>
     <Col sm={9}>
-      <Form.Control  type="date" name="registeration_date" placeholder="Registeration date" />
+      <Form.Control  type="date" name="registeration_date" placeholder="Registeration date" required />
     </Col>
   </Form.Group>
 
@@ -148,7 +173,7 @@ console.log("post data")
     Note
     </Form.Label>
     <Col sm={9}>
-      <Form.Control  type="text" name="note" placeholder="Note" />
+      <Form.Control  type="text" name="note" placeholder="Note" required />
     </Col>
   </Form.Group>
 
@@ -162,5 +187,6 @@ console.log("post data")
 </div>
     );
   }
+}
 }
 export default Addinterviewed

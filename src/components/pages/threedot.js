@@ -4,8 +4,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import axios from 'axios'
-import ProgressBar from 'progress';
-import swal from 'sweetalert';
 
 const ITEM_HEIGHT = 48;
 const baseurl = "http://localhost:3000/editcandidate/";

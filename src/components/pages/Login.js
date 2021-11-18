@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './style.css';
+import './styles/style.css';
 import axios from "axios";
 import { MDBInput } from 'mdb-react-ui-kit';
 
@@ -10,8 +10,8 @@ async function loginUser() {
     method: 'post',
     url: 'https://pg-backend-server.herokuapp.com/api/login/',
     data: {
-      username: 'admin',
-      password: 'admin'
+      username: 'admin1',
+      password: 'admin1'
     }
   });
 
@@ -62,7 +62,10 @@ export default function Login({ setToken }) {
                      <MDBInput label='Password' id='typePassword' type='password' onChange={e => setPassword(e.target.value)} />
             	   </div>
             	</div>
+              <center>
+              <a href="Register">Register</a>
             	<a href="#">Forgot Password?</a>
+              </center>
             	<input type="submit" class="btn6" value="Login"/>
       </form>
           </div>

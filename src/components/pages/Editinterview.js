@@ -1,5 +1,5 @@
 import React, {Component,useState} from "react";
-import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
+import {Table, Button, Form, Row, Col} from 'react-bootstrap'
 import LongMenu from './threedot'
 import { Link , useParams} from 'react-router-dom';
 import axios from "axios";

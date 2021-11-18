@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
 import LongMenu from './threedot'
-import { Link , useParams} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import Pagination from '@material-ui/lab/Pagination';
 var n = 1
@@ -64,18 +64,22 @@ async search(event) {
   if (tmpData.status == 200) {
       
     this.setState({
-      items:tmpData.data,
+      items:tmpData.data.results,
       isLoaded:true
     })
   }
 }
+
   render(){
     const {isLoaded,items} = this.state
     
     if(!isLoaded){
-      return   <div className="spinner-border text-success" role="status">
-                    <span className="visually-hidden">Loading...</span>
-              </div>
+      return   <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+  </div>
     }
     else{
 
@@ -85,11 +89,15 @@ async search(event) {
           <Col sm={6}><h2>Candidate List</h2>
           </Col>
 
-          <Col sm={6}>
+          <Col sm={4}>
                   <Form onSubmit={this.search} className="d-flex" style={{width:300}}>
                       <FormControl type="text" placeholder="Search Candidate" className="mr-2" name="search" aria-label="Search"/>&nbsp;
                       <Button type="submit" variant="outline-success">Search</Button>
                   </Form>
+          </Col>
+
+          <Col sm={2}>
+          <Button href="Addcandidate" variant="outline-dark">Add</Button>
           </Col>
 
       </Row>

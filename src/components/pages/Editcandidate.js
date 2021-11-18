@@ -1,9 +1,8 @@
-import React, {Component,useState} from "react";
-import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
-import LongMenu from './threedot'
-import { Link , useParams} from 'react-router-dom';
+import React, {Component} from "react";
+import {Button, Form, Row, Col} from 'react-bootstrap'
 import axios from "axios";
 import swal from 'sweetalert';
+
 
 class Editcandidate extends Component{
   constructor(props){

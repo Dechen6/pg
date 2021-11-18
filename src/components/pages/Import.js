@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from 'axios'
-import {Table, Button, Form, Row, Col} from 'react-bootstrap'
+import { Form, Row, Col} from 'react-bootstrap'
 import Swal from 'sweetalert';
 var file = "";
 var dataq = "";

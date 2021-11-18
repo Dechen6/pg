@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import { Nav,Button} from 'react-bootstrap'
-import { Link , useParams} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import swal from 'sweetalert';
 import * as mdb from 'mdb-ui-kit'; // lib
 import { Input, dropdown } from 'mdb-ui-kit'; // module
+
 
 
 
@@ -66,12 +67,10 @@ class NavbarComp extends Component{
     var notificationCount = this.state.items.length;
     var notificationData = []
 
-    no_len = items.length+5 > 6?items.length+5:items.length;
-
-    for (let index = 0; index < no_len-items.length; index++) {
-      notificationData.push(<a className="dropdown-item" key = {index} href="Notify">{items[index].candidate_name}</a>)
+    for (let index = 0; index < items.length; index++) {
+      var hreflink = "/Notify/"+items[index].id;
+      notificationData.push(<li><a className="dropdown-item" key = {index} href={hreflink}>{items[index].candidate_name}</a></li>)
     }
-    // notificationData.push(<button className="dropdown-item btn btn-primary"  onClick={showAll}>show all</button>)
 
     return(
       <div>
@@ -89,52 +88,18 @@ class NavbarComp extends Component{
               <a className="navbar-brand mt-2 mt-lg-0" href="#">
                 <img src="assets/img/f.png" height={40} alt="" loading="lazy" />
               </a>
+
               {/* Left links */}
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <ul className="navbar-nav  mb-2 mb-lg-0">
                 <li className="nav-item">
                 <Nav.Link as={Link} to="/home">Home</Nav.Link>
                 </li>
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Candidate
-                </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li>
-                      <a class="dropdown-item" href="/Addcandidate">Add Candidate</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="/Viewcandidate">View Candidate</a>
-                    </li>
-                  </ul>
-              </li>
-                
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Interview
-                </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li>
-                      <a class="dropdown-item" href="/AddInterviewed">Add Interview</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="/Viewinterview">View Interview</a>
-                    </li>
-                  </ul>
-              </li>
+                <li className="nav-item">
+                <Nav.Link as={Link} to="/Viewcandidate">Candidate</Nav.Link>
+                </li>
+                <li className="nav-item">
+                <Nav.Link as={Link} to="/viewinterview">Interview</Nav.Link>
+                </li>
                 <li className="nav-item">
                 <Nav.Link as={Link} to="/import">import</Nav.Link>
                 </li>
@@ -143,7 +108,8 @@ class NavbarComp extends Component{
             </div>
             {/* Collapsible wrapper */}
             {/* Right elements */}
-            <div className="d-flex align-items-center">
+          
+          <div className="d-flex align-items-center position-absolute" style={{right:10+"px",top:20+"px"}}>
 
               {/* Notifications */}
               {/* <a className="text-reset me-3 dropdown-toggle hidden-arrow" href="Notify" role="button">
@@ -156,22 +122,12 @@ class NavbarComp extends Component{
                 </li>
               </ul> */}
 
-<a className="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+          <a className="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                 <i className="fas fa-bell" />
                 <span className="badge rounded-pill badge-notification bg-danger">{notificationCount}</span>
               </a>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li>
-                  {no_len}
-                </li>
-                <li>
+              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink" style={{height:200+"px",overflowY:'scroll', overflowX:'hidden'}}>
                   {notificationData}
-                </li>
-                <li>
-                  <Button variant="primary" onClick={()=>no_len=10}>
-                  Primary
-                </Button>
-                </li>
               </ul>
 
 
