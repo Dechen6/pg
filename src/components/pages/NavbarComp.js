@@ -92,16 +92,16 @@ class NavbarComp extends Component{
               {/* Left links */}
               <ul className="navbar-nav  mb-2 mb-lg-0">
                 <li className="nav-item">
-                <Nav.Link as={Link} to="https://tij6.herokuapp.com/home">Home</Nav.Link>
+                <Nav.Link as={Link} to="/home">Home</Nav.Link>
                 </li>
                 <li className="nav-item">
-                <Nav.Link as={Link} to="https://tij6.herokuapp.com/Viewcandidate">Candidate</Nav.Link>
+                <Nav.Link as={Link} to="/Viewcandidate">Candidate</Nav.Link>
                 </li>
                 <li className="nav-item">
-                <Nav.Link as={Link} to="https://tij6.herokuapp.com/viewinterview">Interview</Nav.Link>
+                <Nav.Link as={Link} to="/viewinterview">Interview</Nav.Link>
                 </li>
                 <li className="nav-item">
-                <Nav.Link as={Link} to="https://tij6.herokuapp.com/import">import</Nav.Link>
+                <Nav.Link as={Link} to="/import">import</Nav.Link>
                 </li>
               </ul>
               {/* Left links */}
