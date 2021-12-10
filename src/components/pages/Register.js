@@ -5,6 +5,7 @@ import axios from "axios";
 import { MDBInput } from 'mdb-react-ui-kit';
 import {Table, Button, Form, FormControl, Row, Col} from 'react-bootstrap'
 import swal from 'sweetalert';
+import { DisabledByDefault, Password } from '@mui/icons-material';
 
 class Register extends Component {
     constructor(props){
@@ -61,7 +62,7 @@ class Register extends Component {
                    }
           }).then( val => {
                   if(val)  {
-                    window.location.replace("http://localhost:3000/");
+                    window.location.replace("https://tij6.herokuapp.com/");
                           }
           });
       })
@@ -72,7 +73,23 @@ class Register extends Component {
   
   
     }
-  
+    password_checker(){
+      var password = document.getElementById("password").value;
+      var cpassword = document.getElementById("cpassword").value;
+      if(cpassword === ""){
+        document.getElementById("msg").innerText = "";
+      }
+      else{
+        if(password != cpassword){
+          document.getElementById("msg").innerText = "Password Mismatch";
+          document.getElementById("register").setAttribute("disabled","disabled")
+        }
+        else{
+          document.getElementById("msg").innerText = "";
+          document.getElementById("register").removeAttribute("disabled");
+        }
+      }
+    }
     render() {
   return(
     <div>
@@ -84,6 +101,7 @@ class Register extends Component {
           </div>
           <div className="login-content">
           <Form onSubmit={this.handleSubmit}>
+          <center><p style={{fontSize:30}}><b>Register Here</b></p></center>
             <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                 <Form.Label column sm={3}>
                 UserName
@@ -92,6 +110,7 @@ class Register extends Component {
                 <Form.Control   type="text" name="username" placeholder="Username"  required/>
                 </Col>
             </Form.Group>
+
             <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                 <Form.Label column sm={3}>
                 Email
@@ -100,14 +119,27 @@ class Register extends Component {
                 <Form.Control   type="email" name="email" placeholder="email"  required/>
                 </Col>
             </Form.Group>
+
             <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                 <Form.Label column sm={3}>
                 Password
                 </Form.Label>
                 <Col sm={9}>
-                <Form.Control   type="password" name="password" placeholder="password"  required/>
+                <Form.Control   type="password" name="password" placeholder="password" id="password" required/>
                 </Col>
             </Form.Group>
+
+            <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
+                <Form.Label column sm={3}>
+                Confirm Password
+                </Form.Label>
+                <Col sm={9}>
+                <Form.Control   type="password" name="password" placeholder="Confirm password" id="cpassword" onInput={this.password_checker} required/>
+                <center><p className="text-danger" id="msg"></p></center>
+                </Col>
+            </Form.Group>
+           
+
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Super User" name="is_superuser" />
                 <Form.Check type="checkbox" label="Staff" name="is_staff" />
@@ -115,7 +147,7 @@ class Register extends Component {
 
             <Form.Group as={Row} className="mb-3">
                 <Col sm={{ span: 10, offset: 3 }}>
-                <Button variant="success" type="submit" value="Submit" >Register</Button>&nbsp;&nbsp;
+                <Button variant="success" type="submit" value="Submit" id="register">Register</Button>&nbsp;&nbsp;
                 <Button variant="danger" type="cancel" value="cancel" >Cancel</Button>
                 </Col>
             </Form.Group>
@@ -128,3 +160,4 @@ class Register extends Component {
 }
 
 export default Register
+
