@@ -56,21 +56,22 @@ class Import extends Component {
       <div className="container" style={{width:"60%"}}>
         <h2 style={{textAlign:"center"}}>Import excel data</h2><br></br>
       
-      <Form onSubmit={this.submitdata}>
+      {/* <Form onSubmit={this.submitdata}>
 
           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
             <Col>
-              <Form.Control   type="file" name="file" placeholder="file" onChange={this.importFile}  required/>
+              <Form.Control   type="file" name="file" placeholder="file" className="form-control-file" onChange={this.importFile}  required/>
             </Col>
           </Form.Group>
-          {/* <Form.Group as={Row} className="mb-3">
-            <Col sm={{ span: 10, offset: 3 }}>
-              <Button variant="success" type="submit" value="Submit" >Submit</Button>&nbsp;&nbsp;
-              <Button variant="danger" type="cancel" value="cancel" >Cancel</Button>
-            </Col>
-          </Form.Group> */}
 
-    </Form>
+    </Form> */}
+
+<Form onSubmit={this.submitdata}>
+<Form.Group controlId="formFileLg" className="mb-3">
+    <Form.Label>Choose your file to upload</Form.Label>
+    <Form.Control type="file" size="lg" />
+  </Form.Group>
+  </Form>
 </div>
     );
   }

@@ -62,7 +62,7 @@ class Register extends Component {
                    }
           }).then( val => {
                   if(val)  {
-                    window.location.replace("https://tij6.herokuapp.com/");
+                    window.location.replace("http://localhost:3000/");
                           }
           });
       })

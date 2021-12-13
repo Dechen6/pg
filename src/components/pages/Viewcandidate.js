@@ -101,7 +101,7 @@ async search(event) {
           </Col>
 
       </Row>
-       <Table striped bordered hover>
+       <Table striped bordered hover responsive>
        <thead>
     <tr>
       <th>ID</th>
